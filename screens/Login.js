@@ -1,26 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
-export default function SignUp({navigation}) {
+export default function SignUp({navigation, route}) {
+    let {email, password} = route.params || {};
+    const [enteredEmail, setEnteredEmail] = useState(email || 'admin');
+    const [enteredPassword, setEnteredPasword] = useState(password || 'admin');
+    if(email === undefined) 
+        email = "admin";
+    if(password === undefined) 
+        password = "admin";
     return (
         <View style={styles.container}>
-            <Image source={require('../assets/Data/Image 20.png')} style={styles.image} ></Image>
+            <Image source={require('../assets/Data/Image_20.png')} style={styles.image} ></Image>
             <Text style={{color:'black', fontSize:37, marginBottom: 50, fontWeight:'bold',
                  alignSelf:'flex-start', marginLeft: 10,}} >Welcome !</Text>
             <Text style={styles.textInput2}>Email</Text>
             <View style={styles.textInputContainer}>
                 <Image source={require('../assets/Data/Vector.png')} style={styles.inputIcon}></Image> 
-                <TextInput style={styles.textInput} placeholder='Enter your  email address'></TextInput>
+                <TextInput style={styles.textInput} placeholder='Enter your  email address' 
+                value={enteredEmail} onChangeText={text => setEnteredEmail(text)}></TextInput>
             </View> 
             <Text style={styles.textInput2}>Password</Text>
             <View style={styles.textInputContainer}>
                 <Image source={require('../assets/Data/lock.png')} style={styles.inputIcon}></Image> 
-                <TextInput style={styles.textInput} placeholder='Enter your password'></TextInput>
+                <TextInput  secureTextEntry={true} style={styles.textInput} placeholder='Enter your password'
+                 value={enteredPassword} onChangeText={text => setEnteredPasword(text)}></TextInput>
                 <Image source={require('../assets/Data/eye.png')} style={{height: '20px', width: '20px', alignSelf:'center'}}></Image> 
             </View>
             <View>
-                <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Product')}}>
+                <TouchableOpacity style={styles.button} onPress={() => {
+                    if(enteredEmail === email && enteredPassword === password) {
+                        navigation.navigate('Product');
+                    } 
+                    else {
+                        alert('Email or Password wrong !!!');
+                    }
+                }}>
                     <Text style={{fontSize: 20, color: 'white'}}>Login</Text>
                 </TouchableOpacity>
             </View>

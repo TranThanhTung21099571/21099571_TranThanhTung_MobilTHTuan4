@@ -1,32 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Checkbox } from "react-native-paper";
 
 
 export default function SignUp({navigation}) {
     const [checked, setChecked] = React.useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <View style={styles.container}>
             <View style={styles.backButton}>
                 <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
-                    <Image source={require('../assets/Data/Image 183.png')}></Image>
+                    <Image source={require('../assets/Data/Image_183.png')}></Image>
                 </TouchableOpacity>
             </View>
-            <Image source={require('../assets/Data/Image 19.png')} style={styles.image} >
+            <Image source={require('../assets/Data/Image_19.png')} style={styles.image} >
             </Image>
             <Text style={styles.Title}>Nice to see you!</Text>
             <Text style={{color:'grey', fontSize:17, marginBottom: 20,}} >Create your account</Text>
             <View style={styles.textInputContainer}>
                 <Image source={require('../assets/Data/codicon_account.png')} style={styles.inputIcon}></Image> 
-                <TextInput style={styles.textInput} placeholder='Enter your user name'></TextInput>
+                <TextInput style={styles.textInput} placeholder='Enter your user name' ></TextInput>
             </View>
             <View style={styles.textInputContainer}>
                 <Image source={require('../assets/Data/Vector.png')} style={styles.inputIcon}></Image> 
-                <TextInput style={styles.textInput} placeholder='Enter your email address'></TextInput>
+                <TextInput style={styles.textInput} placeholder='Enter your email address' onChangeText={text => setEmail(text)}></TextInput>
             </View>
             <View style={styles.textInputContainer}>
                 <Image source={require('../assets/Data/lock.png')} style={styles.inputIcon}></Image> 
-                <TextInput style={styles.textInput} placeholder='Enter your passsword' ></TextInput>
+                <TextInput secureTextEntry={true} style={styles.textInput} placeholder='Enter your passsword' onChangeText={text => setPassword(text)}></TextInput>
             </View>
             <View style={{flexDirection: 'row',}}>
                 <Checkbox status={checked ? 'checked' : 'unchecked'} onPress={() => {
@@ -37,7 +39,7 @@ export default function SignUp({navigation}) {
             <View>
                 <TouchableOpacity style={styles.button} onPress={() => {
                     if(checked) {
-                        navigation.navigate('Login')
+                        navigation.navigate('Login', {email, password});
                     }
                     else {
                         alert('Please agree to the Terms & Conditions before continue.');

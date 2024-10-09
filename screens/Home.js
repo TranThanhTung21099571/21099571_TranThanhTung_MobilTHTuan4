@@ -4,7 +4,7 @@ export default function Screen01({navigation}) {
   return (
 
     <View style={styles.container}>
-        <Image source={require('../assets/Data/Container 17.png')} style={styles.image} />
+        <Image source={require('../assets/Data/Container_17.png')} style={styles.image} />
         <View style={styles.textContainer}>
           <Text style={styles.title}>Boost Productivity</Text>
           <Text style={{fontSize: 15, color:'grey'}}>Simplify tasks, boost Productivity</Text>
